@@ -14,7 +14,7 @@ import express, { Router, Request, Response } from 'express';
   // Use the body parser middleware for post requests
   app.use(bodyParser.json());
 
-  // @TODO1 IMPLEMENT A RESTFUL ENDPOINT
+  // IMPLEMENT A RESTFUL ENDPOINT
   // GET /filteredimage?image_url={{URL}}
   // endpoint to filter an image from a public url.
   // IT SHOULD
@@ -28,21 +28,20 @@ import express, { Router, Request, Response } from 'express';
   // RETURNS
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
   app.get("/filteredimage", async (req: Request, res: Response)=>{
-    let my_url:string = req.query.image_url;
-    if(my_url===""){
+    let image_url:string = req.query.image_url;
+    if(image_url===""){
       return res.status(400).send("Image not found");
     }
       //the code below also needs a try and catch statement
       // return res.status(200).send(images); //note that the instructions suggest that you use .sendFile
       
      try{
-const images=await filterImageFromURL(my_url);
-      return res.status(200).sendFile(images, async ()=>{
-        await deleteLocalFiles([images]);
-      })
+      const filteredpath = await filterImageFromURL(image_url);
+
+      res.status(200).sendFile(filteredpath, () => deleteLocalFiles([filteredpath]))
 }
 catch(ex){
-  // return res.status(400).send("Image not found");
+  return res.status(500).send("Image not found");
 }   
   });
 
