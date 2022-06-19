@@ -28,7 +28,7 @@ import express, { Router, Request, Response } from 'express';
   // RETURNS
   //   the filtered image file [!!TIP res.sendFile(filteredpath); might be useful]
   app.get("/filteredimage", async (req: Request, res: Response)=>{
-    let my_url = req.query.image_url;
+    let my_url:string = req.query.image_url;
     if(my_url===""){
       return res.status(400).send("Image not found");
     }
