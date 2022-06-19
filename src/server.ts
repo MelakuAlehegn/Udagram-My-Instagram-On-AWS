@@ -32,9 +32,6 @@ import express, { Router, Request, Response } from 'express';
     if(my_url===""){
       return res.status(400).send("Image not found");
     }
-    if(my_url===""){
-      return res.status(400).send("Image not found");
-    }
       //the code below also needs a try and catch statement
       // return res.status(200).send(images); //note that the instructions suggest that you use .sendFile
       
